@@ -19,8 +19,10 @@ export PAK_HOME="/Users/sporkmonger/.pak"
 export RIPDIR="/Users/sporkmonger/.rip"
 export PATH="$PATH:$RIPDIR/active/bin"
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-	$(brew --prefix)/etc/bash_completion
+if [ -f "/usr/local/bin/brew" ]; then
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    $(brew --prefix)/etc/bash_completion
+  fi
 fi
 
 source ~/.git-prompt.sh
