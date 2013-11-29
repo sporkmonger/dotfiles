@@ -3,8 +3,6 @@
 	name = Bob Aman
 [color]
 	ui = true
-[push]
-	default = simple
 
 # URL shorthands
 [url "git@github.com:"]
