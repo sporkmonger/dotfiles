@@ -19,20 +19,6 @@ export PAK_HOME="/Users/sporkmonger/.pak"
 export RIPDIR="/Users/sporkmonger/.rip"
 export PATH="$PATH:$RIPDIR/active/bin"
 
-if [ -f "/usr/local/bin/brew" ]; then
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    $(brew --prefix)/etc/bash_completion
-  fi
-fi
-
-source ~/.git-prompt.sh
-
-alias ls="ls -FG"
-alias clipboard="pbcopy"
-alias rubywarn="export RUBYOPT=-w"
-alias ocaml="rlwrap /usr/local/bin/ocaml"
-alias rirb="bundle exec rails c"
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.bin" ] ; then
     PATH="$HOME/.bin:$PATH"
@@ -41,6 +27,47 @@ fi
 if [ -d "$HOME/AndroidSDK/tools" ] ; then
     PATH="$HOME/AndroidSDK/tools:$PATH"
 fi
+
+# Setting PATH for JRuby 1.6.7.2
+# The orginal version is saved in .profile.jrubysave
+PATH="${PATH}:/Library/Frameworks/JRuby.framework/Versions/Current/bin"
+
+# Add RVM to PATH for scripting
+PATH=$PATH:$HOME/.rvm/bin
+
+export PATH
+
+if [ -s /usr/local/bin/brew ]; then
+  if [ -s $(brew --prefix)/etc/bash_completion ]; then
+    $(brew --prefix)/etc/bash_completion
+  fi
+fi
+
+if [ -s ~/.bin/git-prompt.sh ]; then
+  source ~/.bin/git-prompt.sh
+else
+  echo "Attempting to fetch git-prompt.sh..."
+  command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it's not installed. Aborting."; exit 1; }
+
+  curl "https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh" > ~/.bin/git-prompt.sh
+  chmod +x ~/.bin/git-prompt.sh
+  source ~/.bin/git-prompt.sh
+fi
+
+if [ -s ~/.bin/git-bash-completion.sh ]; then
+  source ~/.bin/git-bash-completion.sh
+else
+  echo "Attempting to fetch git-completion.bash..."
+  curl "https://raw.github.com/git/git/master/contrib/completion/git-completion.bash" > ~/.bin/git-bash-completion.sh
+  chmod +x ~/.bin/git-bash-completion.sh
+  source ~/.bin/git-bash-completion.sh
+fi
+
+alias ls="ls -FG"
+alias clipboard="pbcopy"
+alias rubywarn="export RUBYOPT=-w"
+alias ocaml="rlwrap /usr/local/bin/ocaml"
+alias rirb="bundle exec rails c"
 
 git_dirty_flag() {
   git status 2> /dev/null | grep -c : | awk '{if ($1 > 0) print "⚡"}'
@@ -55,20 +82,6 @@ prompt_func()
 }
 PROMPT_COMMAND=prompt_func
 
-# Setting PATH for JRuby 1.6.7.2
-# The orginal version is saved in .profile.jrubysave
-PATH="${PATH}:/Library/Frameworks/JRuby.framework/Versions/Current/bin"
-
-# Add RVM to PATH for scripting
-PATH=$PATH:$HOME/.rvm/bin
-
-export PATH
-
 shopt -s histappend
-
-# Wait until PATH is set up to do bash completion.
-if [ -f ~/.git-bash-completion.sh ] ; then
-    . ~/.git-bash-completion.sh
-fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
