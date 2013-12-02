@@ -46,6 +46,9 @@ fi
 if [ -s ~/.bin/git-prompt.sh ]; then
   source ~/.bin/git-prompt.sh
 else
+  if [ ! -d ~/.bin/ ]; then
+    mkdir -p ~/.bin/
+  fi
   echo "Attempting to fetch git-prompt.sh..."
   command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it's not installed. Aborting."; exit 1; }
 
@@ -57,6 +60,9 @@ fi
 if [ -s ~/.bin/git-bash-completion.sh ]; then
   source ~/.bin/git-bash-completion.sh
 else
+  if [ ! -d ~/.bin/ ]; then
+    mkdir -p ~/.bin/
+  fi
   echo "Attempting to fetch git-completion.bash..."
   curl "https://raw.github.com/git/git/master/contrib/completion/git-completion.bash" > ~/.bin/git-bash-completion.sh
   chmod +x ~/.bin/git-bash-completion.sh
