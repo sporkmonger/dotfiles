@@ -77,6 +77,7 @@ alias rirb="bundle exec rails c"
 
 ps_grep()
 {
+  ps aux | grep -v grep | grep "USER.*COMMAND"
   ps aux | grep -v grep | grep $1
 }
 alias psgrep=ps_grep
