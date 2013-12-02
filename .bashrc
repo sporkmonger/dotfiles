@@ -75,6 +75,12 @@ alias rubywarn="export RUBYOPT=-w"
 alias ocaml="rlwrap /usr/local/bin/ocaml"
 alias rirb="bundle exec rails c"
 
+ps_grep()
+{
+  ps aux | grep -v grep | grep $1
+}
+alias psgrep=ps_grep
+
 git_dirty_flag() {
   git status 2> /dev/null | grep -c : | awk '{if ($1 > 0) print "⚡"}'
 }
