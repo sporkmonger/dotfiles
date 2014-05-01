@@ -55,6 +55,9 @@ if [ -d /usr/local/ec2/ ] ; then
     source ~/.ssh/amazon-ec2/setup_credentials
   fi
 fi
+if [ -d ~/.local/lib/aws/bin ]; then
+  export PATH=$PATH:~/.local/lib/aws/bin
+fi
 
 if [ -s /usr/local/bin/brew ]; then
   if [ -s $(brew --prefix)/etc/bash_completion ]; then
