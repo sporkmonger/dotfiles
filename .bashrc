@@ -47,6 +47,13 @@ if [ -d /usr/local/ec2/ ] ; then
   EC2_REL_PATH=$(ls -t /usr/local/ec2/ | head -1)
   export EC2_HOME="/usr/local/ec2/${EC2_REL_PATH%/}"
   export PATH=$PATH:$EC2_HOME/bin
+
+  # This seems like a semi-reasonable place to stick the
+  # access key ID & secret. Obviously I don't want those in my
+  # dotfiles. This is only needed if the CLI tools are installed.
+  if [ -s ~/.ssh/amazon-ec2/setup_credentials ] ; then
+    source ~/.ssh/amazon-ec2/setup_credentials
+  fi
 fi
 
 if [ -s /usr/local/bin/brew ]; then
