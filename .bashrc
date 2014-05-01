@@ -42,6 +42,13 @@ if [[ -s /usr/libexec/java_home && -d $(/usr/libexec/java_home) ]] ; then
   export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
+# Detect presence of Amazon EC2 CLI tools and configure.
+if [ -d /usr/local/ec2/ ] ; then
+  EC2_REL_PATH=$(ls -t /usr/local/ec2/ | head -1)
+  export EC2_HOME="/usr/local/ec2/${EC2_REL_PATH%/}"
+  export PATH=$PATH:$EC2_HOME/bin
+fi
+
 if [ -s /usr/local/bin/brew ]; then
   if [ -s $(brew --prefix)/etc/bash_completion ]; then
     $(brew --prefix)/etc/bash_completion
