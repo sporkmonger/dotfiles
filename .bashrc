@@ -37,6 +37,11 @@ PATH=$PATH:$HOME/.rvm/bin
 
 export PATH
 
+# On OS X, use the java_home command to locate correct JAVA_HOME
+if [[ -s /usr/libexec/java_home && -d $(/usr/libexec/java_home) ]] ; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi
+
 if [ -s /usr/local/bin/brew ]; then
   if [ -s $(brew --prefix)/etc/bash_completion ]; then
     $(brew --prefix)/etc/bash_completion
