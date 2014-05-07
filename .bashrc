@@ -4,7 +4,7 @@ GREEN="\[\e[32;40m\]"
 BLUE="\[\e[34;40m\]"
 NONE="\[\e[0m\]"
 
-export PATH=".:$PATH:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/Developer/Tools:/usr/local/pgsql/bin:/usr/local/mysql/bin"
+export PATH=".:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH:/usr/X11/bin:/Developer/Tools:/usr/local/pgsql/bin:/usr/local/mysql/bin"
 export INCLUDE="/usr/local/include:/usr/include"
 export LIBDIR="/usr/local/lib:/usr/lib"
 export CFLAGS="-I/usr/local/include -L/usr/local/lib"
