@@ -74,7 +74,7 @@ else
   echo "Attempting to fetch git-prompt.sh..."
   command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it's not installed. Aborting."; exit 1; }
 
-  curl "https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh" > ~/.bin/git-prompt.sh
+  curl "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh" > ~/.bin/git-prompt.sh
   chmod +x ~/.bin/git-prompt.sh
   source ~/.bin/git-prompt.sh
 fi
@@ -86,7 +86,7 @@ else
     mkdir -p ~/.bin/
   fi
   echo "Attempting to fetch git-completion.bash..."
-  curl "https://raw.github.com/git/git/master/contrib/completion/git-completion.bash" > ~/.bin/git-bash-completion.sh
+  curl "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" > ~/.bin/git-bash-completion.sh
   chmod +x ~/.bin/git-bash-completion.sh
   source ~/.bin/git-bash-completion.sh
 fi
@@ -107,6 +107,12 @@ alias psgrep=ps_grep
 git_dirty_flag() {
   git status 2> /dev/null | grep -c : | awk '{if ($1 > 0) print "⚡"}'
 }
+
+if [ ! -n "$(type -t __git_ps1)" ] || [ ! "$(type -t __git_ps1)" = function ]; then
+  if [[ $OSTYPE == 'darwin14' ]]; then
+    echo "Missing __git_ps1 function, perhaps install git via homebrew?"
+  fi
+fi
 
 prompt_func()
 {
