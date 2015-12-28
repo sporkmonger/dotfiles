@@ -105,7 +105,7 @@ ps_grep()
 alias psgrep=ps_grep
 
 git_dirty_flag() {
-  git status 2> /dev/null | grep -c : | awk '{if ($1 > 0) print "⚡"}'
+  git status 2> /dev/null | grep -c : | awk 'function red(s) { printf "\033[1;31m" s "\033[0m " }; function green(s) { printf "\033[1;32m" s "\033[0m " }; {if ($1 > 0) print red("✗"); else print green("✓");}'
 }
 
 if [ ! -n "$(type -t __git_ps1)" ] || [ ! "$(type -t __git_ps1)" = function ]; then
@@ -116,8 +116,8 @@ fi
 
 prompt_func()
 {
-    prompt="${GREEN}\u@\h${NONE}:${BLUE}\w${RED}$(__git_ps1 " (%s)")${NONE}$(git_dirty_flag)"
-    PS1="${prompt}\n\$ "
+    prompt="${GREEN}\u@\h${NONE}:${BLUE}\w${RED}$(__git_ps1 " (%s)")${NONE} $(git_dirty_flag)"
+    PS1="${prompt}\n❯ "
     history -a
     history -n
 }
