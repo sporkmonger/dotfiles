@@ -20,11 +20,11 @@ export RIPDIR="$HOME/.rip"
 export PATH="$PATH:$RIPDIR/active/bin"
 if [ -d "$HOME/go" ] ; then
     export GOHOME=$HOME/go
-    export PATH=$PATH:$GOROOT/bin
 elif [ -d "$HOME/Projects/Go" ] ; then
     export GOHOME="$HOME/Projects/Go"
-    export GOPATH="$GOHOME"
 fi
+export GOPATH="$GOHOME"
+export PATH=$PATH:$GOPATH/bin
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.bin" ] ; then
