@@ -15,9 +15,16 @@ export EDITOR="subl -w"
 export SYDNEY="1"
 export PGDATA="/usr/local/pgsql/data"
 export XAPIAN_FLUSH_THRESHOLD="1000000"
-export PAK_HOME="/Users/sporkmonger/.pak"
-export RIPDIR="/Users/sporkmonger/.rip"
+export PAK_HOME="$HOME/.pak"
+export RIPDIR="$HOME/.rip"
 export PATH="$PATH:$RIPDIR/active/bin"
+if [ -d "$HOME/go" ] ; then
+    export GOHOME=$HOME/go
+    export PATH=$PATH:$GOROOT/bin
+else if [ -d "$HOME/Projects/Go" ] ; then
+    export GOHOME="$HOME/Projects/Go"
+    export GOPATH="$GOHOME"
+fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.bin" ] ; then
