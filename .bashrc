@@ -104,12 +104,38 @@ alias rubywarn="export RUBYOPT=-w"
 alias ocaml="rlwrap /usr/local/bin/ocaml"
 alias rirb="bundle exec rails c"
 
-ps_grep()
+psgrep()
 {
   ps aux | grep -v grep | grep "USER.*COMMAND"
   ps aux | grep -v grep | grep $1
 }
-alias psgrep=ps_grep
+
+# Searches all parent directories for a given file
+upfind() {
+  slashes=${PWD//[^\/]/}
+  directory="$PWD"
+  for (( n=${#slashes}; n>0; --n ))
+  do
+    test -e "$directory/$1" && echo "$directory/$1" && return
+    directory="$directory/.."
+  done
+}
+
+# Allows make to search for the nearest Makefile in all parent directories
+make() {
+  makecommand=$(which make)
+  makefilepath=$(upfind "Makefile")
+  if [[ -s $makefilepath ]]; then
+    makefiledir=$(dirname $makefilepath)
+    if [[ -d $makefiledir ]]; then
+      $makecommand -C $makefiledir $@
+    else
+      $makecommand $@
+    fi
+  else
+    $makecommand $@
+  fi
+}
 
 git_dirty_flag() {
   git status 2> /dev/null | grep -c : | awk 'function red(s) { printf "\033[1;31m" s "\033[0m " }; function green(s) { printf "\033[1;32m" s "\033[0m " }; {if ($1 > 0) print red("✗"); else print green("✓");}'
