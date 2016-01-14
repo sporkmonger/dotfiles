@@ -22,6 +22,8 @@ if [ -d "$HOME/go" ] ; then
     export GOHOME=$HOME/go
 elif [ -d "$HOME/Projects/Go" ] ; then
     export GOHOME="$HOME/Projects/Go"
+elif [ -d "/go" ] ; then
+    export GOHOME="/go"
 fi
 export GOPATH="$GOHOME"
 export PATH=$PATH:$GOPATH/bin
